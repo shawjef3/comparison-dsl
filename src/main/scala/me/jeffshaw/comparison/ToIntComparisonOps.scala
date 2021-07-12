@@ -1,5 +1,7 @@
 package me.jeffshaw.comparison
 
+import scala.language.implicitConversions
+
 trait ToIntComparisonOps {
 
   implicit def IntToIntComparisonOps(x: Int): IntComparisonOps =

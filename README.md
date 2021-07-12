@@ -34,3 +34,7 @@ write
 c0 || c1 || c2
 ```
 .
+
+# SBT Dependency
+
+`"me.jeffshaw.comparison" %% "comparison-dsl" % "1.0.1"`

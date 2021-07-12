@@ -4,12 +4,27 @@ organization := "me.jeffshaw.comparison"
 
 version := "1.0.1"
 
-scalaVersion := "2.13.6"
+scalaVersion := "3.0.1"
 
-crossScalaVersions := Seq("2.12.4", "2.11.14", "2.10.7")
-
-publishMavenStyle := true
+crossScalaVersions := Seq("2.13.6", "2.12.14", "2.11.12", "2.10.7")
 
 libraryDependencies ++= Seq(
-  "org.scalatest" %% "scalatest" % "3.2.3" % Test
+  "org.scalatest" %% "scalatest" % "3.2.9" % Test
 )
+
+licenses := Seq("The BSD 3-Clause License" -> url("http://opensource.org/licenses/BSD-3-Clause"))
+
+homepage := Some(url("https://github.com/shawjef3/comparison-dsl"))
+
+pomExtra :=
+  <developers>
+    <developer>
+      <name>Jeff Shaw</name>
+      <id>shawjef3</id>
+      <url>https://github.com/shawjef3/</url>
+    </developer>
+  </developers>
+  <scm>
+    <url>git@github.com:shawjef3/comparison-dsl.git</url>
+    <connection>scm:git:git@github.com:rocketfuel/sdbc.git</connection>
+  </scm>
