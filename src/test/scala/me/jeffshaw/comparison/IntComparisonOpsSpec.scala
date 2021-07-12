@@ -1,9 +1,9 @@
 package me.jeffshaw.comparison
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import ToIntComparisonOps._
 
-class IntComparisonOpsSpec extends FunSuite {
+class IntComparisonOpsSpec extends AnyFunSuite {
 
   test("or") {
     assertResult(0)(0 || 1)
@@ -12,13 +12,14 @@ class IntComparisonOpsSpec extends FunSuite {
   }
 
   test("or short circuits") {
-    var shortCircuited = true
+    var secondExecuted = false
     def short: Int = {
-      shortCircuited = true
+      secondExecuted = true
       1
     }
+    assert(!secondExecuted)
     assertResult(0)(0 || short)
-    assert(shortCircuited)
+    assert(!secondExecuted)
   }
 
   test("and") {
@@ -29,13 +30,14 @@ class IntComparisonOpsSpec extends FunSuite {
   }
 
   test("and short circuits") {
-    var shortCircuited = true
+    var secondExecuted = false
     def short: Int = {
-      shortCircuited = true
+      secondExecuted = true
       0
     }
+    assert(!secondExecuted)
     assertResult(1)(1 && short)
-    assert(shortCircuited)
+    assert(!secondExecuted)
   }
 
 }
