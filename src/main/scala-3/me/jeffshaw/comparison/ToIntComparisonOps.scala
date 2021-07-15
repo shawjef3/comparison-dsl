@@ -1,16 +1,5 @@
 package me.jeffshaw.comparison
 
-import scala.language.implicitConversions
-
-trait ToIntComparisonOps {
-
-  implicit def IntToIntComparisonOps(x: Int): IntComparisonOps =
-    new IntComparisonOps(x)
-
-}
-
-object ToIntComparisonOps extends ToIntComparisonOps
-
 /**
   * Provides operations for for creating short-circuited aggregates of comparisons. Import
   * the contents of [[ToIntComparisonOps$]] to add `||` and `&&` to [[Int]].
@@ -67,28 +56,25 @@ object ToIntComparisonOps extends ToIntComparisonOps
   * but maybe in some cases the first would be easier to reason about.
   *
   */
-class IntComparisonOps(val x: Int) extends AnyVal {
+trait ToIntComparisonOps:
+  extension (inline x: Int)
+    /**
+      * If the comparison is equal, short circuit. Otherwise, do the alternative comparison.
+      */
+    inline def || (inline y: Int): Int =
+      if x == 0 then
+        0
+      else
+        y
 
-  /**
-    * If the comparison is equal, short circuit. Otherwise, try the alternative comparison.
-    */
-  def ||(y: => Int): Int = {
-    if (x == 0) {
-      x
-    } else {
-      y
-    }
-  }
+    /**
+      * If the comparison is non-equal, short circuit. Otherwise, do the alternative comparison.
+      */
+    inline def && (inline y: Int): Int =
+      val xResult = x
+      if xResult == 0 then
+        y
+      else
+        xResult
 
-  /**
-    * If the comparison is non-equal, short circuit. Otherwise, do the additional comparison.
-    */
-  def &&(y: => Int): Int = {
-    if (x == 0) {
-      y
-    } else {
-      x
-    }
-  }
-
-}
+object ToIntComparisonOps extends ToIntComparisonOps
